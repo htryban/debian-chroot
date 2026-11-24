@@ -1,0 +1,13 @@
+#!/system/bin/sh
+# deb [command [args...]]: open a Debian shell, or run a command in it and stay in the shell.
+L=/data/adb/modules/debian-chroot/deb.sh
+q() { printf "'%s'" "$(printf '%s' "$1" | sed "s/'/'\\\\''/g")"; }
+inner=""
+for a in "$@"; do inner="$inner $(q "$a")"; done
+# nsenter -t 1 -m: use init's (global) mount namespace, so the chroot's mounts are shared by every
+# session and the in-chroot "android" helper can reach the real Android filesystem.
+if [ "$(id -u)" = 0 ]; then
+  exec nsenter -t 1 -m -- sh "$L" "$inner"
+else
+  exec su -c "nsenter -t 1 -m -- sh $L $(q "$inner")"
+fi

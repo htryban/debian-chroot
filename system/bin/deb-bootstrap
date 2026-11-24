@@ -1,0 +1,5 @@
+#!/system/bin/sh
+# deb-bootstrap [dir]: download and set up a Debian root filesystem (default: DEB_ROOT in config.sh).
+L=/data/adb/modules/debian-chroot/bootstrap.sh
+if [ "$(id -u)" = 0 ]; then exec nsenter -t 1 -m -- sh "$L" "$@"; fi
+exec su -c "nsenter -t 1 -m -- sh $L $*"

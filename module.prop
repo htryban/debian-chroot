@@ -1,0 +1,6 @@
+id=debian-chroot
+name=Debian Chroot
+version=v1.0
+versionCode=1
+author=trydent
+description=Adds deb and claude commands that open a Debian chroot (or Claude Code inside it) from any terminal, plus deb-bootstrap to set one up.

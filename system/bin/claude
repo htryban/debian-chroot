@@ -1,0 +1,3 @@
+#!/system/bin/sh
+# claude [args...]: start Claude Code inside the Debian chroot (in the shell's start directory).
+exec deb claude "$@"
